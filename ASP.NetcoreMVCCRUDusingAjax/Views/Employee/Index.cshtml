@@ -1,0 +1,127 @@
+﻿<div class="row">
+    <div class="col-lg-12">
+        <a href="#" onclick="Createnew(); return false;" class="btn btn-primary">Add New</a>
+        @Html.Partial("~/Views/Shared/Master/_employee.cshtml")
+    </div>
+
+    <div class="col-lg-12">
+        <br />
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Code</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Phone</th>
+                    <th>Designation</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+
+    </div>
+
+</div>
+
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+
+    $(document).ready(function () {
+        //alert();
+        
+    });
+
+    function Createnew() {
+        Clearall();
+        $('#btnmodel').trigger('click'); // to execute add new button
+    }
+
+    function Clearall() {
+        $('#txtcode').val('');
+        $('#txtname').val('');
+        $('#txtemail').val('');
+        $('#txtphone').val('');
+        $('#ddldesignation').val('');
+    }
+
+    //loading the data ino select dropdown
+
+    function Loaddesignation() {
+        $('#ddldesignation option').remove();
+        $('#ddldesignation').append("<option value=''>Select</option>");
+        $.ajax({
+            type: 'post',
+            url: 'Employee/GetallDesignation',
+            data: {},
+            success(data) {
+                if (data != null) {
+
+                    $.each(data, function (key, value) {
+                        $('#ddldesignation').append("<option value='" + value.code + "'>" + value.name + "</option>");
+                    });
+                }
+
+            },
+            error() {
+
+            }
+
+        });
+    }
+
+    function save() {
+
+        var isproceed = true;
+        var code = $('#txtcode').val();
+        var name = $('#txtname').val();
+        var email = $('#txtemail').val();
+        var phone = $('#txtphone').val();
+        var designation = $('#ddldesignation').val();
+
+        if (name == '') {
+            isproceed = false;
+
+            $('#txtname').css('border-color', 'red');
+        }
+        else {
+            $('#txtname').css('border-color', '#cc'); 
+
+        }
+        if (isproceed) {
+
+            var empdata = new Object();
+            empdata.code = code;
+            empdata.name = name;
+            empdata.email = email;
+            empdata.phone = phone;
+            empdata.designation = designation;
+
+            $.ajax({
+                type: 'post',
+                url: 'Employee/Save',
+                data: empdata,
+                success(data) {
+                    if (data == 'Pass') {
+                        alert('Saved sucessfully');
+                        Clearall();
+                    }
+                    else {
+                        alert('Failed');
+                    }
+
+                },
+                error() {
+
+                }
+
+            });
+        }
+
+    }
+
+</script>
+
+
+

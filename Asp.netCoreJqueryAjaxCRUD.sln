@@ -3,7 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.32002.261
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Asp.netCoreJqueryAjaxCRUD", "Asp.netCoreJqueryAjaxCRUD\Asp.netCoreJqueryAjaxCRUD.csproj", "{9BA15BA1-97A9-496E-B567-75A62C12FCD0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Asp.netCoreJqueryAjaxCRUD", "Asp.netCoreJqueryAjaxCRUD\Asp.netCoreJqueryAjaxCRUD.csproj", "{9BA15BA1-97A9-496E-B567-75A62C12FCD0}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Project1", "Project1", "{3EA64E02-61E3-4428-B61F-D074D3032D5E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Project2", "Project2", "{D2F8413B-3727-4A81-89DC-E92B7A8B252E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ASP.NetcoreMVCCRUDusingAjax", "ASP.NetcoreMVCCRUDusingAjax\ASP.NetcoreMVCCRUDusingAjax.csproj", "{216DE8D2-8F60-4619-9A65-39FDCF62484F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RepositoryLayer", "RepositoryLayer\RepositoryLayer.csproj", "{21098F60-0D45-454C-95E5-FC38EEFCA71D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,9 +23,22 @@ Global
 		{9BA15BA1-97A9-496E-B567-75A62C12FCD0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9BA15BA1-97A9-496E-B567-75A62C12FCD0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9BA15BA1-97A9-496E-B567-75A62C12FCD0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{216DE8D2-8F60-4619-9A65-39FDCF62484F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{216DE8D2-8F60-4619-9A65-39FDCF62484F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{216DE8D2-8F60-4619-9A65-39FDCF62484F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{216DE8D2-8F60-4619-9A65-39FDCF62484F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{21098F60-0D45-454C-95E5-FC38EEFCA71D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{21098F60-0D45-454C-95E5-FC38EEFCA71D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{21098F60-0D45-454C-95E5-FC38EEFCA71D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{21098F60-0D45-454C-95E5-FC38EEFCA71D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{9BA15BA1-97A9-496E-B567-75A62C12FCD0} = {3EA64E02-61E3-4428-B61F-D074D3032D5E}
+		{216DE8D2-8F60-4619-9A65-39FDCF62484F} = {D2F8413B-3727-4A81-89DC-E92B7A8B252E}
+		{21098F60-0D45-454C-95E5-FC38EEFCA71D} = {D2F8413B-3727-4A81-89DC-E92B7A8B252E}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {773426D9-FC3C-4633-9EA0-CDD83BF9FA25}
