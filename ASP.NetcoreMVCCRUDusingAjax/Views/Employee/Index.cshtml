@@ -1,4 +1,6 @@
-﻿<div class="row">
+﻿<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.css">
+
+<div class="row">
     <div class="col-lg-12">
         <a href="#" onclick="Createnew(); return false;" class="btn btn-primary">Add New</a>
         @Html.Partial("~/Views/Shared/Master/_employee.cshtml")
@@ -6,7 +8,7 @@
 
     <div class="col-lg-12">
         <br />
-        <table class="table table-bordered">
+        <table id="tblemployee" class="table table-bordered">
             <thead>
                 <tr>
                     <th>Code</th>
@@ -26,12 +28,104 @@
 </div>
 
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.js"></script>
+
+
 <script>
 
-    $(document).ready(function () {
+    var js = jQuery.noConflict(true);
+    js(document).ready(function () {
         //alert();
-        
+        Loaddesignation();
+        Loademployee();
     });
+
+    //edit function
+    function FunctionEdit(element) {
+
+        var code = $(element).closest('tr').find('#hdncode').val();
+        Createnew();
+        $.ajax({
+            type: 'post',
+            url: 'Employee/GetBycode',
+            data: { code: code },
+            async: false, // for loading data from db
+            success(data) {
+                if (data != null) {
+                    $('#txtcode').val(data.code);
+                    $('#txtname').val(data.name);
+                    $('#txtemail').val(data.email);
+                    $('#txtphone').val(data.phone);
+                    $('#ddldesignation').val(data.designation);
+                }
+            },
+            error() {
+
+            }
+
+        });
+    }
+
+    //delete function
+
+    function FunctionDelete(element) {
+        if (confirm("Do you want to remove?")) {
+        var code = $(element).closest('tr').find('#hdncode').val();
+
+        $.ajax({
+            type: 'post',
+            url: 'Employee/Remove',
+            data: { code: code },
+            async: false, // for loading data from db
+            success(data) {
+                if (data == 'Pass') {
+                    Loademployee();
+                }
+            },
+            error() {
+
+            }
+
+        });
+        }
+    }
+
+    //loading the data into load enploye
+        
+    function Loademployee() {
+        var empdata = [];
+        $.ajax({
+            type: 'post',
+            url: 'Employee/Getall',
+            data: {},
+            async: false, // for loading data from db
+            success(data) {
+                if (data != null) {
+                
+                    $.each(data, function (key, value) {
+
+                        var editbutton = "<a href='#' onclick='FunctionEdit(this)' class='btn btn-primary'>Edit</a>"
+                        var deletebutton = "<a href='#' onclick='FunctionDelete(this)' class='btn btn-danger'>Delete</a>"
+                        var hidden = "<input type='hidden' id='hdncode' value='" + value.code + "'/>";
+                        var action = hidden + editbutton + ' | ' + deletebutton;
+
+                        empdata.push([value.code, value.name, value.email, value.phone, value.designation, action])
+                    });
+                }
+
+            },
+            error() {
+
+            }
+
+        });
+        js('#tblemployee').dataTable({
+            destroy: true,
+            data: empdata
+
+        });
+    }
 
     function Createnew() {
         Clearall();
@@ -59,7 +153,7 @@
                 if (data != null) {
 
                     $.each(data, function (key, value) {
-                        $('#ddldesignation').append("<option value='" + value.code + "'>" + value.name + "</option>");
+                        $('#ddldesignation').append("<option value='" + value.name + "'>" + value.name + "</option>");
                     });
                 }
 
@@ -86,7 +180,7 @@
             $('#txtname').css('border-color', 'red');
         }
         else {
-            $('#txtname').css('border-color', '#cc'); 
+            $('#txtname').css('border-color', '#cc');
 
         }
         if (isproceed) {
@@ -104,6 +198,8 @@
                 data: empdata,
                 success(data) {
                     if (data == 'Pass') {
+                        Loademployee();
+                        $('.close').trigger('click');// to close popup after save
                         alert('Saved sucessfully');
                         Clearall();
                     }
